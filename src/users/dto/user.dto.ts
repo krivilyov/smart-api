@@ -3,9 +3,9 @@ export class UserDto {
   email: string;
   password: string;
 
-  rconfirmHash: string;
-  role: string;
+  rconfirmHash?: string;
+  role?: string;
   restoreHash?: string;
-  isActive: boolean;
+  isActive?: boolean;
   avatar?: string;
 }
