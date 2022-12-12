@@ -27,4 +27,36 @@ export class UserService {
     });
     return this.usersRepository.save(newUser);
   }
+
+  async updateUser(id: number, dto: UserDto): Promise<Users> {
+    await this.usersRepository
+      .createQueryBuilder()
+      .update(Users)
+      .set({ ...dto })
+      .where('id = :id', { id: id })
+      .execute();
+
+    const user = await this.usersRepository.findOne({
+      where: {
+        id: id,
+      },
+    });
+
+    return user;
+  }
+
+  async removeUser(id: number) {
+    const result = await this.usersRepository
+      .createQueryBuilder('users')
+      .delete()
+      .from(Users)
+      .where('id = :id', { id: id })
+      .execute();
+
+    if (result.affected) {
+      return 'Deleted success';
+    } else {
+      return 'Deleted fail';
+    }
+  }
 }
