@@ -59,4 +59,9 @@ export class UserService {
       return 'Deleted fail';
     }
   }
+
+  async getUserByEmail(email: string) {
+    const user = this.usersRepository.findOne({ where: { email } });
+    return user;
+  }
 }
